@@ -1,0 +1,15 @@
+{
+  "coverageDirectory": "../coverage",
+  "coverageReporters": ["text", "lcov"],
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "src",
+  "setupFilesAfterEnv": ["<rootDir>/test-support/jest.setup.ts"],
+  "testMatch": ["**/*.unit.spec.ts", "**/*.e2e.spec.ts"],
+  "testEnvironment": "node",
+  "testTimeout": 60000,
+  "verbose": true,
+  "transform": {
+    "^.+\\.(t|j)s$": "@swc/jest"
+  },
+  "transformIgnorePatterns": ["node_modules/(?!@nestjs/)"]
+}

@@ -1,0 +1,50 @@
+services:
+  catalog:
+    image: node:24-alpine
+    working_dir: /app
+    volumes:
+      - ./catalog-service.js:/app/catalog-service.js:ro
+    command: ["node", "catalog-service.js"]
+    environment:
+      PORT: "4040"
+    ports:
+      - "4040:4040"
+
+  reservations:
+    image: node:24-alpine
+    working_dir: /app
+    volumes:
+      - ./reservations-service.js:/app/reservations-service.js:ro
+    command: ["node", "reservations-service.js"]
+    environment:
+      PORT: "5050"
+    ports:
+      - "5050:5050"
+
+  scheduling-api:
+    build:
+      context: .
+      args:
+        GIT_SHA: ${GIT_SHA:-unknown}
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      CATALOG_BASE_URL: http://catalog:4040
+      RESERVATIONS_BASE_URL: http://reservations:5050
+    depends_on:
+      - catalog
+      - reservations
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/nodejs/bin/node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/health/liveness').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 15s

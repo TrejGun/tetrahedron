@@ -1,0 +1,29 @@
+# compiled output
+/dist
+/node_modules
+*.tsbuildinfo
+
+# scratch
+.tmp-*
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+
+# tests
+/coverage
+
+# IDEs
+/.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+
+# env
+.env
+.env.*
+!.env.sample
+!.env.test

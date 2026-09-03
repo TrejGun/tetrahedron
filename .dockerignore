@@ -1,0 +1,14 @@
+node_modules
+dist
+coverage
+.git
+.husky
+.env
+.env.*
+!.env.sample
+README.md
+**/*.unit.spec.ts
+**/*.e2e.spec.ts
+src/test-support
+catalog-service.js
+reservations-service.js
